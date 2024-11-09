@@ -28,7 +28,9 @@ arch=(
   'any'
 )
 depends=(
-  'python-zipp'
+  "${_py}>=${_pymajver}"
+  "${_py}<${_pynextver}"
+  "${_py}-zipp"
 )
 makedepends=(
   'git'
@@ -47,7 +49,7 @@ _http="https://github.com"
 _ns="python"
 _url="${_http}/${_ns}/${_pkg}"
 source=(
-  "git+${_http}.git#commit=${_commit}"
+  "git+${_url}.git#commit=${_commit}"
 )
 sha512sums=(
   'SKIP'
