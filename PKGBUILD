@@ -15,6 +15,7 @@ _pyminver="${_pymajver#*.}"
 _pynextver="${_pymajver%.*}.$(( \
   ${_pyminver} + 1))"
 _pkg=importlib-metadata
+_Pkg=importlib_metadata
 pkgname="${_py}-${_pkg}"
 pkgver=5.0.0
 _commit=009ace37032742922d5fa04c62f04cea703ade2d
@@ -47,9 +48,9 @@ checkdepends=(
 )
 _http="https://github.com"
 _ns="python"
-_url="${_http}/${_ns}/${_pkg}"
+_url="${_http}/${_ns}/${_Pkg}"
 source=(
-  "git+${_url}.git#commit=${_commit}"
+  "${_pkg}::git+${_url}.git#commit=${_commit}"
 )
 sha512sums=(
   'SKIP'
