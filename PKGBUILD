@@ -47,7 +47,7 @@ checkdepends=(
 )
 _http="https://github.com"
 _ns="python"
-_url="${_http}/${_ns}/${_pkg}"
+_url="${_http}/${_ns}/${_Pkg}"
 source=(
   "git+${_url}.git#commit=${_commit}"
 )
