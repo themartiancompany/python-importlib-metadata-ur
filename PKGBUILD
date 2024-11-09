@@ -1,30 +1,83 @@
+# SPDX-License-Identifier: AGPL-3.0
+#
+# Maintainer: Pellegrino Prevete <pellegrinoprevete@gmail.com>
+# Maintainer: Truocolo <truocolo@aol.com>
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
-pkgname=python-importlib-metadata
+_py="python"
+_pyver="$( \
+  "${_py}" \
+    -V | \
+    awk \
+      '{print $2}')"
+_pymajver="${_pyver%.*}"
+_pyminver="${_pymajver#*.}"
+_pynextver="${_pymajver%.*}.$(( \
+  ${_pyminver} + 1))"
+_pkg=importlib-metadata
+pkgname="${_py}-${_pkg}"
 pkgver=5.0.0
 _commit=009ace37032742922d5fa04c62f04cea703ade2d
 pkgrel=5
 pkgdesc="Read metadata from Python packages"
-url="https://importlib-metadata.readthedocs.io"
-license=('Apache')
-arch=('any')
-depends=('python-zipp')
-makedepends=('git' 'python-build' 'python-installer' 'python-setuptools-scm' 'python-wheel')
-checkdepends=('python-pytest' 'python-pyfakefs' 'python-pip' 'python-tests')
-source=("git+https://github.com/python/importlib_metadata.git#commit=$_commit")
-sha512sums=('SKIP')
+url="https://${_pkg}.readthedocs.io"
+license=(
+  'Apache'
+)
+arch=(
+  'any'
+)
+depends=(
+  'python-zipp'
+)
+makedepends=(
+  'git'
+  "${_py}-build"
+  "${_py}-installer"
+  "${_py}-setuptools-scm"
+  "${_py}-wheel"
+)
+checkdepends=(
+  "${_py}-pytest"
+  "${_py}-pyfakefs"
+  "${_py}-pip"
+  "${_py}-tests"
+)
+_http="https://github.com"
+_ns="python"
+_url="${_http}/${_ns}/${_pkg}"
+source=(
+  "git+${_http}.git#commit=${_commit}"
+)
+sha512sums=(
+  'SKIP'
+)
 
 build() {
-  cd importlib_metadata
-  python -m build -nw
+  cd \
+    "${_pkg}"
+  "${_py}" \
+    -m \
+      build \
+    -nw
 }
 
 check() {
-  cd importlib_metadata
-  python -m pytest --ignore exercises.py
+  cd \
+    "${_pkg}"
+  "${_py}" \
+    -m \
+      pytest \
+    --ignore \
+    "exercises.py"
 }
 
 package() {
-  cd importlib_metadata
-  python -m installer -d "$pkgdir" dist/*.whl
+  cd \
+    "${_pkg}"
+  "${_py}" \
+    -m \
+      installer \
+    --destdir="$pkgdir" \
+    dist/*.whl
 }
