@@ -50,7 +50,7 @@ _http="https://github.com"
 _ns="python"
 _url="${_http}/${_ns}/${_Pkg}"
 source=(
-  "git+${_url}.git#commit=${_commit}"
+  "${_pkg}::git+${_url}.git#commit=${_commit}"
 )
 sha512sums=(
   'SKIP'
